@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exploding Button</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #222;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .button {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            border-radius: 50%;
+            border: none;
+            font-size: 20px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .explode {
+            animation: explode 0.5s forwards;
+        }
+        @keyframes explode {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(5); opacity: 0; }
+        }
+        .explosion {
+            width: 200px;
+            height: 200px;
+            background: url('https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdTZzc25reHpweWJvMmdwOHNwc216Y3h5N2cwNHE3Z3lrbzkyZWliNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/146BUR1IHbM6zu/giphy.gif') no-repeat center;
+            background-size: cover;
+            position: absolute;
+            display: none;
+        }
+        .image-container {
+            display: none;
+        }
+        .spin {
+            animation: spin 0.5s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(720deg); }
+        }
+    </style>
+</head>
+<body>
+    <button class="button" onclick="explodeButton()">Press</button>
+    <div class="explosion" id="explosion"></div>
+    <div class="image-container">
+        <img id="image" src="https://media-hosting.imagekit.io//637556b871b44e49/Screenshot 2025-02-06 231508.png?Expires=1833475275&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=qGKjwePdRbREenOTMm40m9sGZzwiBEjmc3g8OiLe6qtxHERG7Ovw7TiIeRA~GrDIgB2A3PdBkUnoSjiPccYesOW91qO9icZRWAdEryc4FQ5ZJT68wv6ANSh0Tx5HUGVcyAQnGwall7l-xoi2sN8HhhpTRyW~53lfYoEDFeSEr5SJXkeLvkhrWa4bcYYGpbEFxt5dJ4NzM-cb7nH0OZojmsgUs2UQu6FRMm83qFfdlOiAlia4H7kIn6uJiow0PhZbSNiPrxRfNu2IqoWZawF2T4Min4hNC5Fm4rHNm1CUvRd0vIPetUGS8MN4NzE6X8u1AEbvsI2wr~L-Pm4j-f6ZvA__" alt="Cinematic Image" class="cinematic-image" id="cinematicImage" style="height:174; width:150" alt="Spinning Image">
+    </div>
+    
+    <script>
+        function explodeButton() {
+            let button = document.querySelector('.button');
+            let imageContainer = document.querySelector('.image-container');
+            let image = document.getElementById('image');
+            let explosion = document.getElementById('explosion');
+
+            button.classList.add('explode');
+            setTimeout(() => {
+                button.style.display = 'none';
+                explosion.style.display = 'block';
+                
+                setTimeout(() => {
+                    explosion.style.display = 'none';
+                    imageContainer.style.display = 'block';
+                    image.classList.add('spin');
+                    
+                    setTimeout(() => {
+                        image.classList.remove('spin');
+                    }, 1000);
+                }, 1500);
+            }, 500);
+        }
+    </script>
+</body>
+</html>
